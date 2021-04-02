@@ -1,4 +1,4 @@
-FROM hsqpqbrc/sctk-base:latest
+FROM hsphqbrc/sctk-base:latest
 
 SHELL ["/bin/bash", "-c"]
 

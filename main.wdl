@@ -1,4 +1,4 @@
-workflow SctkSeuratCluster {
+workflow SctkMastDge {
     
     # An integer matrix of counts
     File raw_counts
@@ -38,7 +38,7 @@ task runMast {
     String expGroupName
     String? baseGroupName
 
-    String output_name_prefix = ""
+    String output_name_prefix = "sctk_mast_results"
     Int disk_size = 20
 
     command {
