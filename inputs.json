@@ -1,8 +1,8 @@
 {
-  "SctkSeuratCluster.baseGroupName": "String? (optional)",
-  "SctkSeuratCluster.baseSamples": "Array[String]? (optional)",
-  "SctkSeuratCluster.expSamples": "Array[String]",
-  "SctkSeuratCluster.raw_counts": "File",
-  "SctkSeuratCluster.expGroupName": "String"
+  "SctkMastDge.baseGroupName": "String? (optional)",
+  "SctkMastDge.baseSamples": "Array[String]? (optional)",
+  "SctkMastDge.expSamples": "Array[String]",
+  "SctkMastDge.raw_counts": "File",
+  "SctkMastDge.expGroupName": "String"
 }
 
