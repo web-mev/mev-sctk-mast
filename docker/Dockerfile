@@ -2,6 +2,9 @@ FROM hsqpqbrc/sctk-base:latest
 
 SHELL ["/bin/bash", "-c"]
 
+# Install the optparse package, which allows better commandline arg parsing
+RUN R -e "install.packages('optparse',dependencies=TRUE, repos='http://cran.rstudio.com/')"
+
 # Add the sctk seurat clustering script
 ADD mast_dge.R /opt/software
 
