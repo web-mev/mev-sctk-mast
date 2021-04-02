@@ -200,7 +200,7 @@ sce <- runDEAnalysis(
 df.results <- metadata(sce)$diffExp$exp_VS_base$result
 
 # Write results to file
-output_filename <- paste($output_file_prefix, contrast_str, 'tsv', sep='.')
+output_filename <- paste(opt$output_file_prefix, contrast_str, 'tsv', sep='.')
 write.table(
     df.results, 
     output_filename, 
