@@ -21,7 +21,7 @@
         },
         "SctkMastDge.baseSamples": {
             "description": "The group of cells which is considered the \"control\" group. In a biomarker-style analysis, this is left blank. This field is only used if you wish to explicitly compare two groups of interest.", 
-            "name": "", 
+            "name": "Base or control group:", 
             "required": false, 
             "spec": {
                 "attribute_type": "ObservationSet"
