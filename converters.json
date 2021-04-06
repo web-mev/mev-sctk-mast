@@ -1,0 +1,7 @@
+{
+    "SctkMastDge.baseGroupName": "api.converters.basic_attributes.StringConverter",
+    "SctkMastDge.baseSamples": "api.converters.element_set.ObservationSetListConverter",
+    "SctkMastDge.expSamples": "api.converters.element_set.ObservationSetListConverter",
+    "SctkMastDge.raw_counts": "api.converters.data_resource.CromwellSingleDataResourceConverter",
+    "SctkMastDge.expGroupName": "api.converters.basic_attributes.StringConverter"
+  }
