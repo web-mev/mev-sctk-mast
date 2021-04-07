@@ -48,7 +48,7 @@ task runMast {
             -a ${sep="," expSamples} \
             ${prefix="-b " sep="," baseSamples} \
             --experimental_group_name ${expGroupName} \
-            ${"--base_group_name" + baseGroupName}
+            ${"--base_group_name " + baseGroupName}
     }
 
     output {
