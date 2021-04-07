@@ -66,8 +66,8 @@ if (is.null(opt$base_samples)) {
 
     # Creates a 1-vs-all contrast
     contrast_str = paste0(EXP_CONDITION_NAME, '_vs_all')
-    exp_samples <- make.names(strsplit(EXPERIMENTAL_CONDITION_SAMPLES, ',')[[1]])
     BASE_CONDITION_NAME <- 'other'
+    base_samples <- c() 
 
 } else { 
 
@@ -156,27 +156,23 @@ sce <- seuratSCTransform(
 )
 
 # Create the labels list
-if (ONE_VS_ALL) {
-    labels <- c()
-    # A more elegant solution should be implemented.
-    # This is "slow".
-    for (sample in colnames(sce)) {
-        if (sample %in% exp_samples) {
-            labels <- c(labels, EXP_CONDITION_NAME)
-        } else {
-            labels <- c(labels, BASE_CONDITION_NAME)
-        }
-    }
-} else { # else, do a-vs-b differential expression
-    labels <- c()
-    for (sample in colnames(sce)) {
-        if (sample %in% exp_samples) {
-            labels <- c(labels, EXP_CONDITION_NAME)
-        } else {
-            labels <- c(labels, BASE_CONDITION_NAME)
+labels <- c()
+# A more elegant solution should be implemented.
+# This is "slow".
+for (sample in colnames(sce)) {
+    if (sample %in% exp_samples) {
+        labels <- c(labels, EXP_CONDITION_NAME)
+    } else {
+        labels <- c(labels, BASE_CONDITION_NAME)
+        if (ONE_VS_ALL) {
+            # if a one-vs-all biomarker analysis, no 'base_samples'
+            # were defined. However, we will need this list explicitly
+            # later on. 
+            base_samples <- c(base_samples, sample)
         }
     }
 }
+
 
 # Add the labels to the SCE object
 colLabels(sce) <- as.factor(labels)
@@ -203,10 +199,21 @@ df.results <- subset(df.results, select=-Gene)
 
 # Summarize the transformed counts
 sctCounts <- assay(sce, 'SCTCounts')
-rq <- rowQuantiles(sctCounts)
-rq <- as.data.frame(rq)
-colnames(rq) <- c('min', 'q1', 'median', 'q3', 'max')
-rq$iqr <- rq$q3 - rq$q1
+
+expCounts <- sctCounts[, exp_samples]
+baseCounts <- sctCounts[, base_samples]
+
+rqExp <- as.data.frame(rowQuantiles(expCounts))
+rqBase <- as.data.frame(rowQuantiles(baseCounts))
+colnames(rqExp) <- c('minExp', 'q1Exp', 'medianExp', 'q3Exp', 'maxExp')
+colnames(rqBase) <- c('minBase', 'q1Base', 'medianBase', 'q3Base', 'maxBase')
+rqExp$iqrExp <- rqExp$q3 - rqExp$q1
+rqBase$iqrBase <- rqBase$q3 - rqBase$q1
+
+# merge the summary info
+rq <- merge(rqExp, rqBase, by='row.names')
+rownames(rq) <- rq$Row.names
+rq <- subset(rq, select=-Row.names)
 
 # merge the two dataframes:
 merged_data <- merge(df.results, rq, by='row.names')
