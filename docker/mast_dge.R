@@ -198,13 +198,27 @@ sce <- runDEAnalysis(
 
 # Output results to dataframe
 df.results <- metadata(sce)$diffExp$exp_VS_base$result
+rownames(df.results) <- df.results$Gene
+df.results <- subset(df.results, select=-Gene)
+
+# Summarize the transformed counts
+sctCounts <- assay(sce, 'SCTCounts')
+rq <- rowQuantiles(sctCounts)
+rq <- as.data.frame(rq)
+colnames(rq) <- c('min', 'q1', 'median', 'q3', 'max')
+rq$iqr <- rq$q3 - rq$q1
+
+# merge the two dataframes:
+merged_data <- merge(df.results, rq, by='row.names')
+rownames(merged_data) <- merged_data$Row.names
+merged_data <- subset(merged_data, select=-Row.names)
 
 # Write results to file
 output_filename <- paste(opt$output_file_prefix, contrast_str, 'tsv', sep='.')
 write.table(
-    df.results, 
+    merged_data, 
     output_filename, 
     sep='\t', 
     quote=F, 
-    row.names = FALSE
+    row.names = TRUE
 )
