@@ -197,11 +197,13 @@ df.results <- metadata(sce)$diffExp$exp_VS_base$result
 rownames(df.results) <- df.results$Gene
 df.results <- subset(df.results, select=-Gene)
 
-# Summarize the transformed counts
-sctCounts <- assay(sce, 'SCTCounts')
+# Summarize the counts
+counts <- assay(sce, 'counts')
+cs = Matrix::rowSums(t(counts)) # gets the column sums
+rescaled = 1e6*sweep(counts,2,cs, '/')
 
-expCounts <- sctCounts[, exp_samples]
-baseCounts <- sctCounts[, base_samples]
+expCounts <- rescaled[, exp_samples]
+baseCounts <- rescaled[, base_samples]
 
 rqExp <- as.data.frame(rowQuantiles(expCounts))
 rqBase <- as.data.frame(rowQuantiles(baseCounts))
