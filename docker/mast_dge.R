@@ -112,7 +112,8 @@ if (is.null(opt$base_samples)) {
 cnts <- read.table(
     file = opt$input_file,
     sep = "\t",
-    row.names = 1
+    row.names = 1,
+    header=T
 )
 
 # ensure the sample names are kosher and subset the matrix if necessary.
