@@ -17,13 +17,16 @@ workflow SctkMastDge {
     # we require this.
     String? baseGroupName
 
+    Boolean isDirectComparison = defined(baseSamples)
+
     call runMast {
         input:
             raw_counts = raw_counts,
             expSamples = expSamples,
             baseSamples = baseSamples,
             expGroupName = expGroupName,
-            baseGroupName = baseGroupName
+            baseGroupName = baseGroupName,
+            isDirectComparison = isDirectComparison
     }
 
     output {
@@ -37,18 +40,30 @@ task runMast {
     Array[String]? baseSamples
     String expGroupName
     String? baseGroupName
+    Boolean isDirectComparison
 
     String output_name_prefix = "sctk_mast_results"
     Int disk_size = 20
 
     command {
-        Rscript /opt/software/mast_dge.R \
+        if [[ "${isDirectComparison}" == "true" ]]
+        then
+          Rscript /opt/software/mast_dge.R \
             -f ${raw_counts} \
             -o ${output_name_prefix} \
             -a ${sep="," expSamples} \
-            ${prefix="-b " sep="," baseSamples} \
+            -b ${sep="," baseSamples} \
             --experimental_group_name ${expGroupName} \
             ${"--base_group_name " + baseGroupName}
+        else
+          Rscript /opt/software/mast_dge.R \
+            -f ${raw_counts} \
+            -o ${output_name_prefix} \
+            -a ${sep="," expSamples} \
+            --experimental_group_name ${expGroupName} \
+            ${"--base_group_name " + baseGroupName}
+
+        fi
     }
 
     output {
@@ -56,7 +71,7 @@ task runMast {
     }
 
     runtime {
-        docker: "hsphqbrc/mev-sctk-mast-dge"
+        docker: "hsphqbrc/mev-sctk-mast-dge:6075f066bf378a5f555e1dd844fb05a3f07d04c0"
         cpu: 2
         memory: "16 G"
         disks: "local-disk " + disk_size + " HDD"
