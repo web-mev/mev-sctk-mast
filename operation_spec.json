@@ -7,7 +7,7 @@
             "name": "Count matrix:", 
             "required": true, 
             "spec": {
-                "attribute_type": "DataResource", 
+                "attribute_type": "VariableDataResource", 
                 "resource_types": ["I_MTX", "RNASEQ_COUNT_MTX"], 
                 "many": false
             }
