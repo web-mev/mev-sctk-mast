@@ -48,6 +48,7 @@
     }, 
     "outputs": {
         "SctkMastDge.mast_output": {
+            "required": true,
             "spec": {
                 "attribute_type": "DataResource", 
                 "resource_type": "FT",
