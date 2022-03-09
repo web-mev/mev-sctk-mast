@@ -7,7 +7,7 @@
             "name": "Count matrix:", 
             "required": true, 
             "spec": {
-                "attribute_type": "DataResource", 
+                "attribute_type": "VariableDataResource", 
                 "resource_types": ["I_MTX", "RNASEQ_COUNT_MTX"], 
                 "many": false
             }
@@ -48,6 +48,7 @@
     }, 
     "outputs": {
         "SctkMastDge.mast_output": {
+            "required": true,
             "spec": {
                 "attribute_type": "DataResource", 
                 "resource_type": "FT",
