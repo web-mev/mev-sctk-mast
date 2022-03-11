@@ -71,7 +71,7 @@ task runMast {
     }
 
     runtime {
-        docker: "hsphqbrc/mev-sctk-mast-dge:6075f066bf378a5f555e1dd844fb05a3f07d04c0"
+        docker: "ghcr.io/web-mev/mev-sctk-mast
         cpu: 2
         memory: "16 G"
         disks: "local-disk " + disk_size + " HDD"
