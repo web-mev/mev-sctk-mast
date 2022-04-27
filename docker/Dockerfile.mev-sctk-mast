@@ -4,6 +4,7 @@ FROM ghcr.io/web-mev/base-sctk-docker:sha-b6f556d679aaaa305a80a725e3813431fb93d1
 RUN R -e "install.packages('optparse',dependencies=TRUE, repos='http://cran.rstudio.com/')"
 
 # Add the sctk seurat clustering script
-ADD mast_dge.R /opt/software
+RUN mkdir -p /opt/software
+ADD mast_dge.R /opt/software/
 
 ENTRYPOINT ["/bin/bash"]
