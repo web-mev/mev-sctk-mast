@@ -223,6 +223,11 @@ merged_data <- merge(df.results, rq, by='row.names')
 rownames(merged_data) <- merged_data$Row.names
 merged_data <- subset(merged_data, select=-Row.names)
 
+# rename the Log2_FC and Pvalue columns so it works with other WebMeV tools like gsea
+# which expect to see columns with particular names
+names(merged_data)[names(merged_data) == 'Log2_FC'] <- 'log2FoldChange'
+names(merged_data)[names(merged_data) == 'Pvalue'] <- 'pvalue'
+
 # Write results to file
 output_filename <- paste(opt$output_file_prefix, contrast_str, 'tsv', sep='.')
 write.table(
