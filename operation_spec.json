@@ -6,6 +6,7 @@
             "description": "The input raw count matrix. Must be an integer-based table.", 
             "name": "Count matrix:", 
             "required": true, 
+            "converter": "api.converters.data_resource.CromwellSingleVariableDataResourceConverter",
             "spec": {
                 "attribute_type": "VariableDataResource", 
                 "resource_types": ["I_MTX", "RNASEQ_COUNT_MTX"], 
@@ -16,6 +17,7 @@
             "description": "The group of cells which is considered the \"experimental\" group. In a biomarker-style analysis, this group will be compared to the remaining cells which will act as a \"control\" group.", 
             "name": "Experimental or group of interest:", 
             "required": true, 
+            "converter": "api.converters.element_set.ObservationSetConverter",
             "spec": {
                 "attribute_type": "ObservationSet"
             }
@@ -24,6 +26,7 @@
             "description": "The group of cells which is considered the \"control\" group. In a biomarker-style analysis, this is left blank. This field is only used if you wish to explicitly compare two groups of interest.", 
             "name": "Base or control group:", 
             "required": false, 
+            "converter": "api.converters.element_set.ObservationSetConverter",
             "spec": {
                 "attribute_type": "ObservationSet"
             }
@@ -32,6 +35,7 @@
             "description": "A name for your experimental group of cells.", 
             "name": "Experimental group name:", 
             "required": true, 
+            "converter": "api.converters.basic_attributes.StringConverter",
             "spec": {
                 "attribute_type": "String",
                 "default": "Experimental"
@@ -41,6 +45,7 @@
             "description": "A name for your control group. In a biomarker-style analysis, your \"control\" group is the collection of all other cells in your dataset.", 
             "name": "Control group name", 
             "required": true, 
+            "converter": "api.converters.basic_attributes.StringConverter",
             "spec": {
                 "attribute_type": "String"
             }
@@ -49,6 +54,7 @@
     "outputs": {
         "SctkMastDge.mast_output": {
             "required": true,
+            "converter": "api.converters.data_resource.CromwellSingleDataResourceConverter",
             "spec": {
                 "attribute_type": "DataResource", 
                 "resource_type": "FT",
