@@ -227,6 +227,7 @@ merged_data <- subset(merged_data, select=-Row.names)
 # which expect to see columns with particular names
 names(merged_data)[names(merged_data) == 'Log2_FC'] <- 'log2FoldChange'
 names(merged_data)[names(merged_data) == 'Pvalue'] <- 'pvalue'
+names(merged_data)[names(merged_data) == 'FDR'] <- 'padj'
 
 # Write results to file
 output_filename <- paste(opt$output_file_prefix, contrast_str, 'tsv', sep='.')
