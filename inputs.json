@@ -1,7 +1,0 @@
-{
-  "SctkMastDge.baseGroupName": "String? (optional)",
-  "SctkMastDge.baseSamples": "Array[String]? (optional)",
-  "SctkMastDge.expSamples": "Array[String]",
-  "SctkMastDge.raw_counts": "File",
-  "SctkMastDge.expGroupName": "String"
-}

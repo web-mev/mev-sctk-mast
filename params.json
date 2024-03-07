@@ -1,0 +1,7 @@
+{
+  "baseGroupName": "String? (optional)",
+  "baseSamples": "Array[String]? (optional)",
+  "expSamples": "Array[String]",
+  "raw_counts": "File",
+  "expGroupName": "String"
+}
