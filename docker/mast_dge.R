@@ -150,7 +150,7 @@ sce <- SingleCellExperiment(
 )
 
 # Preprocess the counts with normalization
-sce <- seuratSCTransform(
+sce <- runSeuratSCTransform(
     inSCE = sce, 
     normAssayName = "SCTCounts", 
     useAssay = "counts"
