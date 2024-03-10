@@ -149,12 +149,8 @@ sce <- SingleCellExperiment(
     assays=list(counts=cnts)
 )
 
-# Preprocess the counts with normalization
-sce <- runSeuratSCTransform(
-    inSCE = sce, 
-    normAssayName = "SCTCounts", 
-    useAssay = "counts"
-)
+# Preprocess the counts with log-normalization
+sce <- scaterlogNormCounts(sce, assayName = "logcounts")
 
 # Create the labels list
 labels <- c()
@@ -182,7 +178,7 @@ colLabels(sce) <- as.factor(labels)
 sce <- runDEAnalysis(
     inSCE = sce, 
     method = "MAST", 
-    useAssay = "SCTCounts",
+    useAssay = "logcounts",
     class = "label", 
     classGroup1 = EXP_CONDITION_NAME, 
     classGroup2 = BASE_CONDITION_NAME,
