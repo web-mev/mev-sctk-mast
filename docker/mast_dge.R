@@ -190,7 +190,7 @@ sce <- runDEAnalysis(
 )
 
 # Output results to dataframe
-df.results <- metadata(sce)$diffExp$exp_VS_base$result
+df.results <- as.data.frame(metadata(sce)$diffExp$exp_VS_base$result)
 rownames(df.results) <- df.results$Gene
 df.results <- subset(df.results, select=-Gene)
 
@@ -224,6 +224,8 @@ merged_data <- subset(merged_data, select=-Row.names)
 names(merged_data)[names(merged_data) == 'Log2_FC'] <- 'log2FoldChange'
 names(merged_data)[names(merged_data) == 'Pvalue'] <- 'pvalue'
 names(merged_data)[names(merged_data) == 'FDR'] <- 'padj'
+
+merged_data <- merged_data[order(merged_data$pvalue),]
 
 # Write results to file
 output_filename <- paste(opt$output_file_prefix, contrast_str, 'tsv', sep='.')
