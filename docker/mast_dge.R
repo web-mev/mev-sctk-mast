@@ -170,6 +170,14 @@ for (sample in colnames(sce)) {
     }
 }
 
+if(is.null(base_samples)){
+  if(length(exp_samples) == dim(sce)[2]){
+    message('All the samples were contained in one contrast group and there is nothing to compare against. Check your inputs and try again.')
+  } else {
+    message('There were no samples to compare to. Please check your inputs.')
+  }
+  quit(status=1)
+}
 
 # Add the labels to the SCE object
 colLabels(sce) <- as.factor(labels)
