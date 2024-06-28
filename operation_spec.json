@@ -43,7 +43,7 @@
         },
         "baseGroupName": {
             "description": "A name for your control group. In a biomarker-style analysis, your \"control\" group is the collection of all other cells in your dataset.", 
-            "name": "Control group name", 
+            "name": "Control group name:", 
             "required": true, 
             "converter": "api.converters.basic_attributes.StringConverter",
             "spec": {
